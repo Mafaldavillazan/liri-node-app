@@ -7,9 +7,11 @@ var axios = require("axios")
 var keys = require("./keys.js");
 //Moment for changing the time
 var moment = require("moment")
+//Requiring spotify
+var Spotify = require('node-spotify-api')
+var spotify = new Spotify(keys.spotify)
 
 
-//var spotify = new Spotify(keys.spotify)
 //USER INPUTS
 //What the user asks liri to search for
 var userAsks = process.argv[2];
@@ -44,6 +46,30 @@ switch (userAsks) {
 
     //SONG SEARCH
     case "spotify-this-song":
+        spotify.search({ type: 'track', query: userSelection, limit: 2 }, function (err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+            else {
+
+                var artist = data.tracks.items[0].album.artists[0]["name"]
+                var songName = userSelection
+                var linkSpotify = data.tracks.items[0].album.artists[0].external_urls["spotify"]
+                //wasn't able to find the album in a readable way, this result if serched it links to the album
+                var albumSong = data.tracks.items[0].album["uri"]
+
+                //All the values
+                //console.log(JSON.stringify(data, null, 2))
+                //Console logging the information
+                console.log("-------Here  you have the info of " + userSelection + " song-------")
+                console.log("The name of the artist: " + artist
+                    + "\nThe name of the song: " + songName
+                    + "\nThe link to the song: " + linkSpotify
+                    + "\nThe album of the song: " + albumSong)
+                console.log("---------------------------------------------------------------")
+            }
+
+        });
 
         break;
 
@@ -77,9 +103,9 @@ switch (userAsks) {
                         + "\nRooten tomatoes: " + ratingTomatoesFilm)
                     //console.log("\nThe Rating in rating at IMDB: " + ratingFilm)
                     console.log("---------------------------------------------------------------")
-
                 })
         }
+        //When the user inputs information
         else {
             axios
                 .get("http://www.omdbapi.com/?t=" + userSelection + "&apikey=f94feda2")
@@ -105,8 +131,6 @@ switch (userAsks) {
                     //console.log("\nThe Rating in rating at IMDB: " + ratingFilm)
                     console.log("---------------------------------------------------------------")
                 })
-
-
         }
         break;
 
