@@ -35,9 +35,9 @@ switch (userAsks) {
                 //moment(stringDate, 'DD.MM.YYYY').format('YYYY/MM/DD')
                 //Displaying the information
                 console.log("-------Here  you have the info of " + userSelection + " next concert-------")
-                console.log("The name of the venue is: " + venueName 
-                + "\nThe location of the event is: " + venueLocation 
-                + "\nThe day of the event is: " + stringDate)
+                console.log("The name of the venue is: " + venueName
+                    + "\nThe location of the event is: " + venueLocation
+                    + "\nThe day of the event is: " + stringDate)
                 console.log("---------------------------------------------------------------")
             })
         break;
@@ -49,29 +49,65 @@ switch (userAsks) {
 
     //MOVIE SEARCH
     case "movie-this":
-        axios
-            .get("http://www.omdbapi.com/?t=" + userSelection + "&apikey=f94feda2")
-            .then(function (response) {
-                var titleFilm = response.data["Title"]
-                var yearFilm = response.data["Year"]
-                //var ratingFilm = response.data["Ratings"]
-                var countryFilm = response.data["Country"]
-                var plotFilm = response.data["Plot"]
-                var actorsFilm = response.data["Actors"]
-                console.log(response.data);
+        //If they don't input any data
+        if (userSelection = "0") {
+            userSelection = "Mr.Nobody"
+            axios
+                .get("http://www.omdbapi.com/?t=" + userSelection + "&apikey=f94feda2")
+                .then(function (response) {
+                    var titleFilm = response.data["Title"]
+                    var yearFilm = response.data["Year"]
+                    var countryFilm = response.data["Country"]
+                    var plotFilm = response.data["Plot"]
+                    var actorsFilm = response.data["Actors"]
+                    var ratingIMDBFilm = response.data.Ratings[0]["Value"]
+                    var ratingTomatoesFilm = response.data.Ratings[1]["Value"]
+                    //console.log(response.data);
 
-                console.log("-------Here  you have the info you asked for-------")
-                console.log("\nThe title of the movie: " + titleFilm 
-                + "\nThe year the movie came out: " + yearFilm 
-                + "\nThe Country where it was produced: " + countryFilm
-                + "\nThe plot of the film: " + plotFilm
-                + "\nThe actors in the film: " + actorsFilm)
-    
-                //console.log("\nThe Rating in rating tomatoes: " + ratingFilm)
-                //console.log("\nThe Rating in rating at IMDB: " + ratingFilm)
-                console.log("---------------------------------------------------------------")
-            })
+                    console.log("-------You didn't provide Info, but-------")
+                    console.log("If you haven't watched " + userSelection + " then you should: <http://www.imdb.com/title/tt0485947/>"
+                        + "\nIts on Netflix!")
+                    console.log("\nThe title of the movie: " + titleFilm
+                        + "\nThe year the movie came out: " + yearFilm
+                        + "\nThe Country where it was produced: " + countryFilm
+                        + "\nThe plot of the film: " + plotFilm
+                        + "\nThe actors in the film: " + actorsFilm)
+                    console.log("\n*** Ratings ***"
+                        + "\nIMDB: " + ratingIMDBFilm
+                        + "\nRooten tomatoes: " + ratingTomatoesFilm)
+                    //console.log("\nThe Rating in rating at IMDB: " + ratingFilm)
+                    console.log("---------------------------------------------------------------")
 
+                })
+        }
+        else {
+            axios
+                .get("http://www.omdbapi.com/?t=" + userSelection + "&apikey=f94feda2")
+                .then(function (response) {
+                    var titleFilm = response.data["Title"]
+                    var yearFilm = response.data["Year"]
+                    var countryFilm = response.data["Country"]
+                    var plotFilm = response.data["Plot"]
+                    var actorsFilm = response.data["Actors"]
+                    var ratingIMDBFilm = response.data.Ratings[0]["Value"]
+                    var ratingTomatoesFilm = response.data.Ratings[1]["Value"]
+                    //console.log(response.data);
+
+                    console.log("-------Here  you have the info you asked for-------")
+                    console.log("\nThe title of the movie: " + titleFilm
+                        + "\nThe year the movie came out: " + yearFilm
+                        + "\nThe Country where it was produced: " + countryFilm
+                        + "\nThe plot of the film: " + plotFilm
+                        + "\nThe actors in the film: " + actorsFilm)
+                    console.log("\n*** Ratings ***"
+                        + "\nIMDB: " + ratingIMDBFilm
+                        + "\nRooten tomatoes: " + ratingTomatoesFilm)
+                    //console.log("\nThe Rating in rating at IMDB: " + ratingFilm)
+                    console.log("---------------------------------------------------------------")
+                })
+
+
+        }
         break;
 
     //DO WHAT IT SAYS
