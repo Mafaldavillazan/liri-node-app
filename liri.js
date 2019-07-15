@@ -154,15 +154,13 @@ function movieThis(userSelection) {
     }
 }
 
-function doWhatItSays(userSelection) {
+function doWhatItSays() {
     fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         }
-        console.log(data)
-
+        
         var dataArr = data.split(",")
-        console.log(dataArr)
         //As the value is on the position even of that number
         function getrandomnumber(max) {
             var num = Math.floor(Math.random() * max)
@@ -178,6 +176,8 @@ function doWhatItSays(userSelection) {
         var arrValueRandom = dataArr[arrValue]
         var arrSearchRandom = dataArr[arrValue + 1]
 
+        console.log("The random Action: " + arrValueRandom)
+        console.log("The random Search of: " + arrSearchRandom)
         //Switch statament that will postion the value of the value random
         switch (arrValueRandom) {
             //CONCERT THIS
@@ -186,6 +186,9 @@ function doWhatItSays(userSelection) {
                 break;
             case "movie-this":
                 movieThis(arrSearchRandom)
+                break;
+            case "concert-this":
+                concertThis(arrSearchRandom)
                 break;
         }
     })
