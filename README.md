@@ -13,15 +13,15 @@ Here are the commands you can write in the terminal and the results you can expe
     * If the user inputs a song
     ![Song search](images/spotify-this-song.png)
 
-    * If the user doesn't inputs a song
+    * If the user doesn't input a song
     ![Song search](images/spotify-thisnoinput.png)
 
 * `node liri.js movie-this '<movie name here>'`
 
-    * If the user inputs movie
+    * If the user inputs a movie
     ![Song search](images/movie-this.png) 
 
-    * If the user  doesn't inputs
+    * If the user  doesn't input a movie
     ![Song search](images/movie-this-no-input.png)
 
 * `node liri.js do-what-it-says`
