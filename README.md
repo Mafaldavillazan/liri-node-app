@@ -13,8 +13,8 @@ Here are the commands you can write in the terminal and the results you can expe
     * If the user input song
     ![Song search](images/spotify-this-song.png)
 
-    * TO DEVELOP If the user  doesn't inputs
-    ![Song search](images/spotify-this-song.png)
+    * If the user doesn't inputs a song
+    ![Song search](images/spotify-thisnoinput.png)
 
 * `node liri.js movie-this '<movie name here>'`
 

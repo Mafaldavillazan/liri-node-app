@@ -49,26 +49,52 @@ switch (userAsks) {
 
 //FUNCTIONS
 function spotifyThis(userSelection) {
-    spotify.search({ type: 'track', query: userSelection, limit: 2 }, function (err, data) {
-        if (err) {
-            return console.log('Error occurred: ' + err);
-        }
-        else {
-            var artist = data.tracks.items[0].album.artists[0]["name"]
-            var songName = userSelection
-            var linkSpotify = data.tracks.items[0].album.artists[0].external_urls["spotify"]
-            //wasn't able to find the album in a readable way, this result if serched it links to the album
-            var albumSong = data.tracks.items[0].album["uri"]
-
-            console.log("-------Here  you have the info of " + userSelection + " song-------")
-            console.log("The name of the artist: " + artist
-                + "\nThe name of the song: " + songName
-                + "\nThe link to the song: " + linkSpotify
-                + "\nThe album of the song: " + albumSong)
-            console.log("---------------------------------------------------------------")
-        }
-
-    });
+    if(!userSelection){
+        userSelection = "The Sign"
+        spotify.search({ type: 'track', query: userSelection, limit: 2 }, function (err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+            else {
+                var artist = data.tracks.items[1].album.artists[0]["name"]
+                var songName = userSelection
+                var linkSpotify = data.tracks.items[1].album.artists[0].external_urls["spotify"]
+                //wasn't able to find the album in a readable way, this result if serched it links to the album
+                var albumSong = data.tracks.items[1].album["uri"]
+    
+                console.log("------- You dind't provide any data but here is a song-------")
+                console.log("The name of the artist: " + artist
+                    + "\nThe name of the song: " + songName
+                    + "\nThe link to the song: " + linkSpotify
+                    + "\nThe album of the song: " + albumSong)
+                console.log("---------------------------------------------------------------")
+            }
+    
+        });
+    }
+    else{
+        spotify.search({ type: 'track', query: userSelection, limit: 2 }, function (err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            }
+            else {
+                var artist = data.tracks.items[0].album.artists[0]["name"]
+                var songName = userSelection
+                var linkSpotify = data.tracks.items[0].album.artists[0].external_urls["spotify"]
+                //wasn't able to find the album in a readable way, this result if serched it links to the album
+                var albumSong = data.tracks.items[0].album["uri"]
+    
+                console.log("-------Here  you have the info of " + userSelection + " song-------")
+                console.log("The name of the artist: " + artist
+                    + "\nThe name of the song: " + songName
+                    + "\nThe link to the song: " + linkSpotify
+                    + "\nThe album of the song: " + albumSong)
+                console.log("---------------------------------------------------------------")
+            }
+    
+        });
+    }
+   
 }
 
 
@@ -159,7 +185,7 @@ function doWhatItSays() {
         if (error) {
             return console.log(error);
         }
-        
+
         var dataArr = data.split(",")
         //As the value is on the position even of that number
         function getrandomnumber(max) {
