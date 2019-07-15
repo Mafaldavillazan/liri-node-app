@@ -25,3 +25,4 @@ Here are the commands you can write in the terminal and the results you can expe
     ![Song search](images/movie-this-no-input.png)
 
 * `node liri.js do-what-it-says`
+![Random Search](images/Random_Selection.png)
