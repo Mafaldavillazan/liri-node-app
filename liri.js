@@ -76,7 +76,7 @@ switch (userAsks) {
     //MOVIE SEARCH
     case "movie-this":
         //If they don't input any data
-        if (userSelection = "0") {
+        if (!userSelection) {
             userSelection = "Mr.Nobody"
             axios
                 .get("http://www.omdbapi.com/?t=" + userSelection + "&apikey=f94feda2")
