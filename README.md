@@ -10,7 +10,7 @@ Here are the commands you can write in the terminal and the results you can expe
 
 * `node liri.js spotify-this-song '<song name here>'`
 
-    * If the user input song
+    * If the user inputs a song
     ![Song search](images/spotify-this-song.png)
 
     * If the user doesn't inputs a song
