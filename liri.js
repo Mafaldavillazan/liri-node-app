@@ -24,7 +24,7 @@ var userSelection = process.argv[3];
 switch (userAsks) {
     //CONCERT THIS
     case "concert-this":
-        concertThis()
+        concertThis(userSelection)
         break;
 
     //SONG SEARCH
@@ -34,7 +34,7 @@ switch (userAsks) {
 
     //MOVIE SEARCH
     case "movie-this":
-        movieThis()
+        movieThis(userSelection)
         break;
 
     //DO WHAT IT SAYS
@@ -72,7 +72,7 @@ function spotifyThis(userSelection) {
 }
 
 
-function concertThis() {
+function concertThis(userSelection) {
     axios
         .get("https://rest.bandsintown.com/artists/" + userSelection + "/events?app_id=d7e548f4-f02a-4448-8c03-1ebac3b0b32e")
         .then(function (response) {
@@ -94,7 +94,7 @@ function concertThis() {
 }
 
 
-function movieThis() {
+function movieThis(userSelection) {
     //If they don't input any data
     if (!userSelection) {
         userSelection = "Mr.Nobody"
@@ -154,22 +154,39 @@ function movieThis() {
     }
 }
 
-function doWhatItSays() {
+function doWhatItSays(userSelection) {
     fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         }
         console.log(data)
 
-        var dataArr = data.split(",");
-        //console.log(dataArr)
-        //Switch statment so we tak the random selection
-        switch (dataArr[0]) {
+        var dataArr = data.split(",")
+        console.log(dataArr)
+        //As the value is on the position even of that number
+        function getrandomnumber(max) {
+            var num = Math.floor(Math.random() * max)
+            //Check if is odd
+            if (num % 2 == 0) {
+                return num;
+            } else {
+                num++
+                return num;
+            }
+        }
+        var arrValue = getrandomnumber(dataArr.length - 1)
+        var arrValueRandom = dataArr[arrValue]
+        var arrSearchRandom = dataArr[arrValue + 1]
+
+        //Switch statament that will postion the value of the value random
+        switch (arrValueRandom) {
+            //CONCERT THIS
             case "spotify-this-song":
-                userSelection = dataArr[1]
-                spotifyThis(userSelection)
+                spotifyThis(arrSearchRandom)
+                break;
+            case "movie-this":
+                movieThis(arrSearchRandom)
                 break;
         }
-
     })
 }
